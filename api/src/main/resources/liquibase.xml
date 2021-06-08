@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <!--
+    	See http://wiki.openmrs.org/display/docs/Module+liquibase+File for 
+    	documentation on this file.
+    
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+
+   <changeSet id="xdssender-2018-04-03-12-21" author="Paweł Gesek">
+       <preConditions onFail="MARK_RAN">
+           <not><tableExists tableName="xdssender_ccd"/></not>
+       </preConditions>
+       <comment>
+           Creating the xdssender_ccd table
+       </comment>
+       <createTable tableName="xdssender_ccd">
+           <column name="xdssender_ccd_id" type="int" autoIncrement="true">
+               <constraints primaryKey="true" nullable="false"/>
+           </column>
+           <column name="uuid" type="char(38)">
+               <constraints nullable="false" unique="true"/>
+           </column>
+           <column name="patient_id" type="int">
+               <constraints nullable="false" unique="true"/>
+           </column>
+           <column name="document" type="clob" />
+           <column name="creator" type="int"/>
+           <column name="date_changed" type="datetime" />
+           <column name="date_created" type="datetime">
+               <constraints nullable="false"/>
+           </column>
+           <column name="changed_by" type="varchar(255)" />
+           <column name="voided" type="boolean" defaultValueBoolean="false">
+               <constraints nullable="false"/>
+           </column>
+           <column name="date_voided" type="datetime" />
+           <column name="void_reason" type="varchar(255)" />
+           <column name="voided_by" type="varchar(255)"/>
+       </createTable>
+       <addForeignKeyConstraint constraintName="xdssender_ccd_patient_fk" baseTableName="xdssender_ccd"
+                                baseColumnNames="patient_id" referencedTableName="patient"
+                                referencedColumnNames="patient_id" />
+   </changeSet>
+
+</databaseChangeLog>

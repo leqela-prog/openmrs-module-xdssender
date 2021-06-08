@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Beans to add to the current Application context definition -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  		    http://www.springframework.org/schema/context
+  		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.xdssender.api.service.XdsExportService</value>
+                <ref bean="xdsSender.XdsExportService" />
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.xdssender.api.service.XdsAdhocQueryService</value>
+                <ref bean="xdsSender.XdsAdhocQueryService" />
+            </list>
+        </property>
+    </bean>-->
+
+    <bean id="xdssender.XdsAdhocQueryService"
+          class="org.openmrs.module.xdssender.api.service.impl.XdsAdhocQueryServiceImpl"/>
+
+    <bean id="xdsSender.XdsRetrieveDocumentSetService"
+          class="org.openmrs.module.xdssender.api.service.impl.XdsRetriveDocumentSetServiceImpl"/>
+
+</beans>
