@@ -21,5 +21,9 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
+  
+    - name: Check Maven Version
+      run: mvn --version
+      
     - name: Build with Maven
-      run: mvn clean install -DSkip.Tests=True
+      run: mvn clean install -DSkipTests=true
